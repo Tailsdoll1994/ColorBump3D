@@ -13,7 +13,7 @@ public class ChangeColor : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         // Чтобы скрипт работал, нужно зайти в inspector и указать в поле nameObject tag объекта с которым нужно будет поменяться цветом
-        // Всего этих тега три, это "Cube", "Sphere", "Cylinder".
+        // Всего этих тега четыри, это "Wall", "Cube", "Sphere", "Cylinder".
         // Так же можно выбрать способ изменения цвета. 
         // swapOne игрок перекрашваитеся в цвет nameObject
         // swapTwo игрок и nameObject меняются цветами
