@@ -24,7 +24,7 @@ public class PlayerInput : MonoBehaviour
     {
         // Управлеятся приблизительно так же как и в "color bump 3D".
         // Управляется одним пальцем, свайпами влево, вправо, а так же шарик ускоряется свайпами верх, вниз.
-        // Если что скорость можно отрегулировать в inspector
+        // Скорость можно отрегулировать в inspector
 
         Vector3 pos = Vector3.zero;
         float totalSpeed = speed / 2;
