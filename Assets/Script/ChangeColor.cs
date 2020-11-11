@@ -13,11 +13,13 @@ public class ChangeColor : MonoBehaviour
 
     // Переменная список барьеров. Приватный т.к. в Start() находится при помощи nameObject.
     private GameObject[] listBarriers;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         listBarriers = GameObject.FindGameObjectsWithTag(nameObject);
     }
+
     void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.name == "Player")
@@ -30,10 +32,12 @@ public class ChangeColor : MonoBehaviour
             }
             else 
             {
+                // Запуска метода с обменом цветов
                 both();
             }
         }
     }
+
     void both()
     {
         // Записываем цвет в который окрашен игрок в переменую colorPlayer

@@ -13,17 +13,21 @@ public class PlayerDeath : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
+
     void Update()
     {
         DeadZone_Abyss();
     }
+
     private void DeadZone_Abyss()
     {
+        // Если игрок упадет за пределы кординат abyss уровень перезапустится
         if (player.transform.position.y < abyss)
         {
             SceneManager.LoadScene("Level");
         }
     }
+
     void OnCollisionEnter(Collision collision)
     {
         /* После сравнения объектов через тэги, идёт проверка цветов. 
@@ -37,6 +41,7 @@ public class PlayerDeath : MonoBehaviour
             }
         }
     }
+
     // Все объекты с которым игрок может столкнуться
     bool comparisonTags(Collision collision)
     {

@@ -2,19 +2,25 @@
 
 public class GeneratingBarriers : MonoBehaviour
 {
-    /* Переменная дубликтов объектов по ширине.
-     * Публичная, чтобы легче указывать кол-во по ширине.*/
+    /* 
+     * Переменная дубликтов объектов по ширине.
+     * Публичная, чтобы легче указывать кол-во по ширине.
+     */
     public int cloneWidth;
 
-    /* Переменная дубликтов объектов по высоте.
-     * Публичная, чтобы легче указывать кол-во по высоте.*/
+    /* 
+     * Переменная дубликтов объектов по высоте.
+     * Публичная, чтобы легче указывать кол-во по высоте.
+     */
     public int cloneHeight;
 
     // Переменная выбора создаваемых объектов.
     public int selectObj = 1;
 
-    /* Переменная размеров по осям.
-     * Публичная, чтобы легче указывать размеры объектов .*/
+    /* 
+     * Переменная размеров по осям.
+     * Публичная, чтобы легче указывать размеры объектов.
+     */
     public float scaleX, scaleY, scaleZ;
 
     // Переменная цвета. Публичная, чтобы легче корректировать её.
@@ -27,10 +33,11 @@ public class GeneratingBarriers : MonoBehaviour
     private GameObject cloneObj;
 
     // Перменная отступ.
-    private const float indent = 1.5f;
+    private const float Indent = 1.5f;
 
     // Переменная размеры по осям X, Z.
     private float copyScaleX, copyScaleZ;
+
     void Start()
     {
         choseObj();
@@ -38,6 +45,7 @@ public class GeneratingBarriers : MonoBehaviour
         setMassAndPosition();
         generation();
     }
+
     void setMassAndPosition()
     {
         // Устонавливаем дефольтные кординаты на которых стоит спавн объекта.
@@ -49,16 +57,20 @@ public class GeneratingBarriers : MonoBehaviour
         // Добовляем всем объектам нулевую массу.
         objects.AddComponent<Rigidbody>().mass = 0;
     }
+
     void selectColor()
     {
         // Указываем нужный цвет объектам.
         MeshRenderer renderer = objects.GetComponent<MeshRenderer>();
         renderer.material.SetColor("_Color", color);
     }
+
     void generation()
     {
-        /* Не уверен на сколько это хороший способ клонирования объектов,
-         * Однако другого я так и не смог придумать.*/ 
+        /* 
+         * Не уверен на сколько это хороший способ клонирования объектов,
+         * Однако другого я так и не смог придумать.
+         */ 
         for (int i = 0; i < cloneHeight; i++)
         {
             for (int j = 0; j < cloneWidth; j++)
@@ -76,18 +88,23 @@ public class GeneratingBarriers : MonoBehaviour
                 copyScaleX = cloneObj.transform.localScale.x;
                 copyScaleZ = cloneObj.transform.localScale.z;
 
-                /* И тут самое сложное как по мне.
-                 * На основе позиции объектов, их размеров и колчиства по,*/
+                /* 
+                 * И тут самое сложное как по мне.
+                 * На основе позиции объектов, их размеров и колчиства по,
+                 */
                 /// <param name="cloneHeight"></param>
                 /// <param name="cloneWidth"></param>
-                /* Производится рассчет того на сколько нужно отступить кол-во векторов,
-                 * Чтобы объекты не соприкосались с друг с другом.*/
+                /* 
+                 * Производится рассчет того на сколько нужно отступить кол-во векторов,
+                 * Чтобы объекты не соприкосались с друг с другом.
+                 */
                 cloneObj.transform.position = new Vector3(
-                    transform.position.x + j * (copyScaleX * indent), 1.0f, 
-                    transform.position.z + i * (copyScaleZ * indent));
+                    transform.position.x + j * (copyScaleX * Indent), 1.0f, 
+                    transform.position.z + i * (copyScaleZ * Indent));
             }
         }
     }
+
     void choseObj()
     {
         // Взависимости от числа создается объект с указаным размером и тегом.

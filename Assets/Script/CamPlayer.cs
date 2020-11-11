@@ -7,10 +7,12 @@ public class CamPlayer : MonoBehaviour
 
     // Переменная игрок. Приватная т.к. в Start() находится при помощи Tag. 
     private GameObject target;
+
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player");
     }
+
     void Update()
     {
         transform.position = new Vector3(
