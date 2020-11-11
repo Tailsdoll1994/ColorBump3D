@@ -341,7 +341,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloneWidth: 11
   cloneHeight: 8
-  choseObj: 3
+  selectObj: 3
+  scaleX: 2
+  scaleY: 2
+  scaleZ: 2
   color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &667271951
 Transform:
@@ -402,7 +405,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloneWidth: 1
   cloneHeight: 1
-  choseObj: 1
+  selectObj: 1
+  scaleX: 20
+  scaleY: 4
+  scaleZ: 2
   color: {r: 0.002501011, g: 0, b: 1, a: 1}
 --- !u!1 &986790240
 GameObject:
@@ -435,7 +441,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloneWidth: 23
   cloneHeight: 17
-  choseObj: 2
+  selectObj: 2
+  scaleX: 1
+  scaleY: 1
+  scaleZ: 1
   color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &986790242
 Transform:
@@ -713,7 +722,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloneWidth: 5
   cloneHeight: 4
-  choseObj: 4
+  selectObj: 4
+  scaleX: 2
+  scaleY: 2
+  scaleZ: 2
   color: {r: 0.003921569, g: 0, b: 1, a: 1}
 --- !u!4 &1727881526
 Transform:
@@ -836,5 +848,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameObject: Cylinder
-  swapOne: 0
-  swapTwo: 1
+  ChangeTwo: 1

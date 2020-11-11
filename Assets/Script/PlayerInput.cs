@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour
 {
+    // Переменная скорости. Публичная, чтобы легче корректировать её 
     public float speed = 5.0f;
+    // Переменная цвета. Публичная, по той же причине.
     public Color color;
-
+    // Переменная для поправки разрешение экрана под android
+    private const float pixelFix = 2.0f;
+    // Переменная в которой записывается разрешение экрана по оси X
     private float width;
+    // Переменная для записи инфо об позиции при нажатии на сенсор телефона
     private Vector3 touchStartPosition;
     void Awake()
     {
-        width = Screen.width / 2.0f;
+        width = Screen.width / pixelFix;
     }
     void Start()
     {
@@ -22,16 +26,18 @@ public class PlayerInput : MonoBehaviour
     }
     private void MoveInput()
     {
-        // Управлеятся приблизительно так же как и в "color bump 3D".
-        // Управляется одним пальцем, свайпами влево, вправо, и ускоряя шарик свайпами верх, вниз.
-        // Если что скорость можно отрегулировать в inspector
-
+        /// <param name="pos">Используется для обработки кординат на сенсоре по оси X.</param>
         Vector3 pos = Vector3.zero;
+
+        /// <param name="totalSpeed">Используется для передачи ускорения или замедления скорости объекта по оси Y.</param>
         float totalSpeed = speed / 2;
+
         if (Input.touchCount > 0)
         {
+            /// <param name="touch">Используется для определения позиции пальца на оси кординат.</param>
             Touch touch = Input.GetTouch(0);
             pos = touch.position;
+
             if (touch.phase == TouchPhase.Began)
             {
                 touchStartPosition = touch.position;
@@ -47,8 +53,13 @@ public class PlayerInput : MonoBehaviour
                     totalSpeed *= 2f;
                 }
             }
+
+            /* Рассчитываем и устраняем погрешности по разрешению экрана, а так же 
+             * придаём объекту скорости и (так как я не имею опыта в оптимизации на телефонах) 
+             * умножаем на Time.fixedDeltaTime*/ 
             pos.x = (pos.x - width) / width * speed * Time.fixedDeltaTime;
         }
+
         transform.Translate(new Vector3(pos.x, 0.0f, totalSpeed * Time.fixedDeltaTime));
     }
 }

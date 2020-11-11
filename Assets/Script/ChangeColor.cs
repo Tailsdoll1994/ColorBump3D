@@ -2,37 +2,51 @@
 
 public class ChangeColor : MonoBehaviour
 {
+    // Переменная для поиска объектов по тегам.
     public string nameObject;
+
+    // Переменная для выбора смены цветов.
+    public bool ChangeTwo = false;
+
+    // Переменная игрок. Приватная т.к. в Start() находится при помощи Tag. 
     private GameObject player;
-    public bool swapOne = false;
-    public bool swapTwo = false;
+
+    // Переменная список барьеров. Приватный т.к. в Start() находится при помощи nameObject.
+    private GameObject[] listBarriers;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        listBarriers = GameObject.FindGameObjectsWithTag(nameObject);
     }
     void OnTriggerEnter(Collider collider)
     {
-        // Чтобы скрипт работал, нужно зайти в inspector и указать в поле nameObject tag объекта с которым нужно будет поменяться цветом
-        // Всего этих тега три, это "Cube", "Sphere", "Cylinder".
-        // Так же можно выбрать способ изменения цвета. 
-        // swapOne игрок перекрашваитеся в цвет nameObject
-        // swapTwo игрок и nameObject меняются цветами
-
-        if (collider.gameObject.name == "Player" && swapOne == true && swapTwo == false)
+        if (collider.gameObject.name == "Player")
         {
-            GameObject[] listBarriers = GameObject.FindGameObjectsWithTag(nameObject);
-            player.GetComponent<Renderer>().material.color = listBarriers[0].GetComponent<Renderer>().material.GetColor("_Color");
-        }
-        else if (collider.gameObject.name == "Player" && swapTwo == true && swapOne == false)
-        {
-            GameObject[] listBarriers = GameObject.FindGameObjectsWithTag(nameObject);
-            Color colorPlayer = player.GetComponent<Renderer>().material.GetColor("_Color");
-            player.GetComponent<Renderer>().material.color = listBarriers[0].GetComponent<Renderer>().material.GetColor("_Color");
-            foreach (GameObject Barriers in listBarriers)
+            if (ChangeTwo == false)
             {
-                Barriers.GetComponent<Renderer>().material.color = colorPlayer;
+                // Игрок окрашивает в выбраный объект
+                player.GetComponent<Renderer>().material.color = 
+                listBarriers[0].GetComponent<Renderer>().material.GetColor("_Color");
+            }
+            else 
+            {
+                both();
             }
         }
     }
+    void both()
+    {
+        // Записываем цвет в который окрашен игрок в переменую colorPlayer
+        Color colorPlayer = player.GetComponent<Renderer>().material.GetColor("_Color");
 
+        // Игрок окрашивает в выбраный объект
+        player.GetComponent<Renderer>().material.color = 
+        listBarriers[0].GetComponent<Renderer>().material.GetColor("_Color");
+
+        // В цикле перекрашиваем все выбраные объекты в цвет игрока
+        foreach (GameObject Barriers in listBarriers)
+        {
+            Barriers.GetComponent<Renderer>().material.color = colorPlayer;
+        }
+    }
 }

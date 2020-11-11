@@ -1,40 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerDeath : MonoBehaviour
 {
-    // Всего есть два способа умереть.
+    // Переменная бездна. Публичная, чтобы легче корректировать её.
+    public const float abyss = -15.0f;
+
+    // Переменная игрок. Приватная т.к. в Start() находится при помощи Tag. 
     private GameObject player;
-    private void Start()
+
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
-    private void Update()
+    void Update()
     {
         DeadZone_Abyss();
     }
-    // 1. Когда шарик падает с дороги.
     private void DeadZone_Abyss()
     {
-        if (player.transform.position.y < -10)
+        if (player.transform.position.y < abyss)
         {
             SceneManager.LoadScene("Level");
         }
     }
-    // 2. Когда шарик сталкивается с барьером другого цвета
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall" ||
-            collision.gameObject.tag == "Cube" ||
-            collision.gameObject.tag == "Sphere" ||
-            collision.gameObject.tag == "Cylinder")
+        /* После сравнения объектов через тэги, идёт проверка цветов. 
+         * Если цвета не совпадают у двух объектов, уровень загружается занаво.*/
+        if (comparisonTags(collision))
         {
-            if (!collision.transform.GetComponent<Renderer>().material.color.Equals(player.transform.GetComponent<Renderer>().material.color))
+            if (!collision.transform.GetComponent<Renderer>().material.color.Equals
+                (player.transform.GetComponent<Renderer>().material.color))
             {
                 SceneManager.LoadScene("Level");
             }
         }
+    }
+    // Все объекты с которым игрок может столкнуться
+    bool comparisonTags(Collision collision)
+    {
+        return collision.gameObject.tag == "Cube" ||
+               collision.gameObject.tag == "Sphere" ||
+               collision.gameObject.tag == "Cylinder" ||
+               collision.gameObject.tag == "Wall";
     }
 }

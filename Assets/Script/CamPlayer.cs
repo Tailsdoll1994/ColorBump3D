@@ -2,7 +2,10 @@
 
 public class CamPlayer : MonoBehaviour
 {
+    // Переменная кординат камеры. Публичная, чтобы легче корректировать её.
     public Vector3 vector;
+
+    // Переменная игрок. Приватная т.к. в Start() находится при помощи Tag. 
     private GameObject target;
     private void Start()
     {
@@ -10,9 +13,9 @@ public class CamPlayer : MonoBehaviour
     }
     void Update()
     {
-        // Камера следит за объектом только с тегом "Player".
-        // Растояние камеры можно отрегулировать в inspector
-
-        transform.position = new Vector3(transform.position.x, target.transform.position.y + vector.y, target.transform.position.z - vector.z);
+        transform.position = new Vector3(
+            transform.position.x, 
+            target.transform.position.y + vector.y, 
+            target.transform.position.z - vector.z);
     }
 }
